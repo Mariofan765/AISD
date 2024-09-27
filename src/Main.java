@@ -1,41 +1,33 @@
 import java.util.Scanner;
 
 public class Main {
-    private int[] array = new int[3];
-
-    public void addNumber(int number) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == 0) {
-                array[i] = number;
-                return;
-            } else if (number < array[i]) {
-                array[i] = number;
-                break;
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Main memoryCell = new Main();
+        System.out.print("Введите количество палочек (n): ");
+        long n = scanner.nextLong();
 
-        System.out.println("Введите числа через пробел");
-        String input = scanner.nextLine().trim();
-        String[] numbers = input.split(" ");
+        long tanyaSticks = 0;
+        boolean tanyaTurn = true;
 
-        for (String numStr : numbers) {
-            try {
-                int number = Integer.parseInt(numStr);
-                memoryCell.addNumber(number);
-            } catch (NumberFormatException e) {
+        while (n > 0) {
+            if (tanyaTurn) {
+                if (n % 2 == 0) {
+                    tanyaSticks += 1;
+                    n -= 1;
+                } else {
+                    tanyaSticks += 1;
+                    n -= 1;
+                }
+            } else {
+                if (n % 2 == 0) {
+                    n /= 2;
+                } else {
+                    n -= 1;
+                }
             }
+            tanyaTurn = !tanyaTurn;
         }
 
-        System.out.println("Значения в ячейке");
-        for (int value : memoryCell.array) {
-            if (value != 0) {
-                System.out.print(value + " ");
-            }
-        }
+        System.out.println("Количество палочек у Тани: " + tanyaSticks);
     }
 }
